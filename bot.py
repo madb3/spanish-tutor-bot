@@ -1,5 +1,4 @@
 print("BOT FILE LOADED")
-print("DEBUG: key =", os.getenv("OPENAI_API_KEY"))
 import os
 import discord
 from discord.ext import commands
@@ -7,7 +6,7 @@ from dotenv import load_dotenv
 print("TOKEN", os.getenv("DISCORD_TOKEN"))
 from openai import OpenAI
 import random
-
+print("DEBUG: key =", os.getenv("OPENAI_API_KEY"))
 load_dotenv()
 
 DISCORD_TOKEN = os.getenv("DISCORD_TOKEN")
