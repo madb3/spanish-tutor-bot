@@ -60,6 +60,8 @@ VOCAB = {
     }
 }
 
+#Redeploying for variables
+
 @bot.event
 async def on_message(message):
     if message.author.bot:
