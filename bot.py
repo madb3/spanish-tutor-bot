@@ -17,7 +17,6 @@ if not OPENAI_API_KEY:
     raise ValueError("OpenAI key no found.")
 
 openai_client = OpenAI(api_key=OPENAI_API_KEY)
-discord_client = discord.Client()
 
 intents = discord.Intents.default()
 intents.message_content = True
