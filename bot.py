@@ -11,8 +11,11 @@ load_dotenv()
 
 DISCORD_TOKEN = os.getenv("DISCORD_TOKEN")
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
+if not OPENAI_API_KEY:
+    raise ValueError("OpenAI key no found.")
 
 client = OpenAI(api_key=OPENAI_API_KEY)
+discord_client = discord.Client()
 
 intents = discord.Intents.default()
 intents.message_content = True
