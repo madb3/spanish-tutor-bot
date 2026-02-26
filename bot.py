@@ -25,17 +25,16 @@ intents.presences = True
 
 SPANISH_CHANNEL_NAME = "spanish-tutor"
 
-user_memory = {}
-
 bot = commands.Bot(command_prefix='!', intents=intents)
 
 SYSTEM_PROMPT = """
-You are a friendly Spanish tutor.
-- Help users learn beginner-level Spanish through conversation.
-- Correct grammar gently.
-- Give explanations in English when asked.
+You are a friendly spanish tutor. You can get a little bit sarcastic and snarky when user is being snarky.
+- Your job is to help users learn beginner and intermediate level Spanish through conversation.
 - Encourage conversation in spanish.
-- Keep responses concise but helpful.
+- Keep responses concise and helpful.
+- Correct grammar.
+- Give explanations in English.
+- You are allowed to use spanish profanity and slang when appropriate.
 """
 
 @bot.event
@@ -58,32 +57,30 @@ VOCAB = {
         "I like" : "Me gusta",
         "I want" : "Yo quiero",
         "I need" : "Yo necesito"
+    },
+    "verbs": {
+        "To have": "Tener",
+        "To cook": "Cocinar",
+        "To play": "Jugar",
+        "To sleep": "Dormir",
+        "To do" : "Hacer",
+        "To drink": "Beber"
     }
 }
-
-#Redeploying for variables
 
 @bot.event
 async def on_message(message):
     if message.author.bot:
         return
     
-    if message.channel.name == SPANISH_CHANNEL_NAME:
-        user_id = message.author.id
-
-        if user_id not in user_memory:
-            user_memory[user_id] = []
-
-        user_memory[user_id].append({"role": "user", "content": message.content})
-
-        user_memory[user_id] = user_memory[user_id][-6:]
-
+    if message.channel.name == SPANISH_CHANNEL_NAME:      
         try:
             response = openai_client.chat.completions.create(
                 model = "gpt-4o-mini",
                 messages = [
-                    {"role": "system", "content": SYSTEM_PROMPT}
-                ] + user_memory[user_id]
+                    {"role": "system", "content": SYSTEM_PROMPT},
+                    {"role": "user", "content": message.content}
+                ]
             )
 
             reply = response.choices[0].message.content
@@ -97,13 +94,16 @@ async def on_message(message):
 
 
 @bot.command()
-async def quiz(ctx, category: str = "basics, grammar"):
+async def quiz(ctx, category: str = None):
     if ctx.channel.name != SPANISH_CHANNEL_NAME:
         return
     
-    if category not in VOCAB:
-        await ctx.send("Available categories: grammar, basics")
-        return
+    categories = list(VOCAB.keys())
+    
+    if category is None or category.lower() not in VOCAB:
+        category = random.choice(categories)
+
+    category = category.lower()
     
     word, translation = random.choice(list(VOCAB[category].items()))
 
