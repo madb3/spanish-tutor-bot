@@ -1,4 +1,5 @@
 print("BOT FILE LOADED")
+print("DEBUG: key =", os.getenv("OPENAI_API_KEY"))
 import os
 import discord
 from discord.ext import commands
@@ -14,7 +15,7 @@ OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 if not OPENAI_API_KEY:
     raise ValueError("OpenAI key no found.")
 
-client = OpenAI(api_key=OPENAI_API_KEY)
+openai_client = OpenAI(api_key=OPENAI_API_KEY)
 discord_client = discord.Client()
 
 intents = discord.Intents.default()
@@ -78,7 +79,7 @@ async def on_message(message):
         user_memory[user_id] = user_memory[user_id][-6:]
 
         try:
-            response = client.chat.completions.create(
+            response = openai_client.chat.completions.create(
                 model = "gpt-4o-mini",
                 messages = [
                     {"role": "system", "content": SYSTEM_PROMPT}
