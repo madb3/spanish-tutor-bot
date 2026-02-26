@@ -9,6 +9,8 @@ import random
 print("DEBUG: key =", os.getenv("OPENAI_API_KEY"))
 load_dotenv()
 
+#Trigger deployment
+
 DISCORD_TOKEN = os.getenv("DISCORD_TOKEN")
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 if not OPENAI_API_KEY:
