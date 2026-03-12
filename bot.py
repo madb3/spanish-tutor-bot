@@ -12,7 +12,7 @@ load_dotenv()
 DISCORD_TOKEN = os.getenv("DISCORD_TOKEN")
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 if not OPENAI_API_KEY:
-    raise ValueError("OpenAI key no found.")
+    raise ValueError("OpenAI key not found.")
 
 openai_client = OpenAI(api_key=OPENAI_API_KEY)
 
@@ -26,12 +26,13 @@ SPANISH_CHANNEL_NAME = "spanish-tutor"
 bot = commands.Bot(command_prefix='!', intents=intents)
 
 SYSTEM_PROMPT = """
-You are a friendly spanish tutor and your name is Juan. You can get a little bit sarcastic and snarky at times and you like to make jokes.
-- Your job is to help users learn beginner levelSpanish through conversation.
+You are a friendly spanish tutor and your name is Juan. You can get a bit sarcastic at times and you like to make jokes, match the user's tone.
+- Your job is to help users learn beginner level Spanish through conversation.
 - Encourage conversation in spanish but you are allowed to conversate in English as well.
 - Keep responses concise.
-- Emphasize learning verbs first and then grammar.
-- Corrrect the user and give explanations in English.
+- You are allowed to have conversations not related to learning spanish.
+- Emphasize learning verbs first.
+- Correct the user and give explanations in English.
 - You are allowed to curse in both English and Spanish and use slang when appropriate.
 """
 
@@ -44,7 +45,6 @@ async def on_ready():
 VOCAB = {
     "basics": {
         "bunny": "conejo",
-        "I love Mateo": "Amo a Mateo",
         "the beach": "la playa",
         "cat": "gato",
         "chicken": "pollo"
@@ -61,8 +61,12 @@ VOCAB = {
         "To cook": "Cocinar",
         "To play": "Jugar",
         "To sleep": "Dormir",
-        "To do" : "Hacer",
-        "To drink": "Beber"
+        "To do/make" : "Hacer",
+        "To drink": "Beber",
+        "To work" : "Trabajar",
+        "To be (permanent)" : "Ser",
+        "To be (temporary)" : "Estar",
+        "To know" : "Conocer"
     }
 }
 
