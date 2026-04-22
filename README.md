@@ -9,10 +9,10 @@ Sentence correction and feedback
 AI-powered responses using OpenAI API  
 
 ### Technologies
-Python  
-OpenAI API  
-discord.py  
-python-dotenv  
+- Python  
+- OpenAI API  
+- discord.py  
+- python-dotenv  
 
 ### Deployment
 The bot is hosted on Railway and runs continuously as a worker service.  
