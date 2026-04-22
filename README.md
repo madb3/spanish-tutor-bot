@@ -1,3 +1,4 @@
+## Overview
 A python-based Discord chatbot that helps users practice spanish through conversation, quizzes, and grammar explanations. The bot can respond to questions, test vocabulary, and provide feedback.  
 
 ### Features
@@ -25,5 +26,5 @@ The application automatically starts the bot when the service is deployed.
 !quiz basics  
 
 ### Future Improvements
-Progress tracking for individual users  
-Short-term conversation memory  
+* Progress tracking for individual users  
+* Short-term conversation memory  
